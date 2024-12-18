@@ -2,6 +2,7 @@ import { SplashScreen, Stack } from "expo-router";
 import '../global.css'
 import {useFonts} from'expo-font'
 import { useEffect } from "react";
+import TimerProvider from "@/context/TimerContext";
 
 // prevent the splash screen from auto hiding until all the font assets are loaded
 SplashScreen.preventAutoHideAsync()
@@ -20,10 +21,13 @@ if (!fontsLoaded) return null
 if (!fontsLoaded && error) return null
 
   return (
-    <Stack screenOptions={{headerShown: false}}>
-      <Stack.Screen name="index"/>
-      <Stack.Screen name="(tabs)"/>
-      <Stack.Screen name="meditate/[id]"/>
-    </Stack>
+    <TimerProvider>
+      <Stack screenOptions={{headerShown: false}}>
+        <Stack.Screen name="index"/>
+        <Stack.Screen name="(tabs)"/>
+        <Stack.Screen name="meditate/[id]"/>
+        <Stack.Screen name="(modal)/adjust-meditation-duration" options={{presentation: 'modal'}}/>
+      </Stack>
+    </TimerProvider>
 );
 }
